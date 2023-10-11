@@ -1,9 +1,9 @@
 import { useSelector } from 'react-redux';
-import { posts } from '../../../redux/postsRedux';
+import { getPosts } from '../../../redux/postsRedux';
 import Post from '../../common/Post/Post';
 
 const RenderPost = () => {
-  const allPost = useSelector(posts);
+  const allPost = useSelector(getPosts);
 
   return (
     <div className='d-flex flex-wrap '>

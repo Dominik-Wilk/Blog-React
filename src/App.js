@@ -2,7 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import NotFound from './components/pages/NotFound/NotFound';
 import About from './components/pages/About/About';
 import Home from './components/pages/Home/Home';
-import PostDetails from './components/pages/About/PostDetails/PostDetails';
+import PostDetails from './components/pages/PostDetails/PostDetails';
 import AddPost from './components/pages/AddPost/AddPost';
 import EditPost from './components/pages/EditPost/EditPost';
 import Header from './components/views/Header/Header';

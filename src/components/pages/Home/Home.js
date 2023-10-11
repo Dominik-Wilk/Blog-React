@@ -1,5 +1,6 @@
 import { Button } from 'react-bootstrap';
 import RenderPost from '../../features/RenderPost/RenderPost';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
   return (
@@ -7,7 +8,8 @@ const Home = () => {
       <div className='d-flex justify-content-between'>
         <h1>All posts</h1>
         <Button
-          href={`/post/add`}
+          as={Link}
+          to={`/post/add`}
           variant='outline-primary'
           className='btn-lg d-flex align-items-center px-4'>
           Add post
