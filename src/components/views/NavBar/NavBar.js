@@ -3,11 +3,14 @@ import { NavLink } from 'react-router-dom';
 
 const NavBar = () => {
   return (
-    <Navbar bg='primary' variant='dark' className='mt-4 mb-4 rounded'>
-      <Navbar.Brand as={NavLink} to='/' className='mx-2'>
+    <Navbar
+      bg='primary'
+      variant='dark'
+      className='justify-content-between mt-4 mb-4  rounded'>
+      <Navbar.Brand as={NavLink} to='/' className='mx-3'>
         Blog.app
       </Navbar.Brand>
-      <Nav className='d-flex justify-content-end w-100 '>
+      <Nav>
         <Nav.Link as={NavLink} to='/'>
           Home
         </Nav.Link>
