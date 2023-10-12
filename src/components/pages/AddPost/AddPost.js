@@ -1,4 +1,11 @@
+import AddPostForm from '../../features/AddPostForm/AddPostForm';
+
 const AddPost = () => {
-  return <h1> Add new post!</h1>;
+  return (
+    <div className='mx-5 '>
+      <h2>Add post</h2>
+      <AddPostForm />
+    </div>
+  );
 };
 export default AddPost;
