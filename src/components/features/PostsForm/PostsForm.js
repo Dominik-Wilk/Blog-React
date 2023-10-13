@@ -53,7 +53,7 @@ const PostsForm = ({ action, actionText, ...props }) => {
           <Form.Label>Published</Form.Label>
           <Form.Control
             required
-            type='text'
+            type='date'
             placeholder='Enter published date'
             name='published'
             value={publishedDate}
