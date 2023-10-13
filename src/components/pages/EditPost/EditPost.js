@@ -1,4 +1,11 @@
+import EditPostForm from '../../features/EditPostForm/EditPostForm';
+
 const EditPost = () => {
-  return <h1>Edit post</h1>;
+  return (
+    <div className='mx-5 '>
+      <h2>Edit post</h2>
+      <EditPostForm />
+    </div>
+  );
 };
 export default EditPost;
