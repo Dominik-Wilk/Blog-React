@@ -2,6 +2,10 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 
+import ReactQuill from 'react-quill';
+import DatePicker from 'react-datepicker';
+import 'react-quill/dist/quill.snow.css';
+import 'react-datepicker/dist/react-datepicker.css';
 const PostsForm = ({ action, actionText, ...props }) => {
   const [title, setTitle] = useState(props.title || '');
   const [author, setAuthor] = useState(props.author || '');
@@ -10,7 +14,6 @@ const PostsForm = ({ action, actionText, ...props }) => {
     props.shortDescription || ''
   );
   const [content, setContent] = useState(props.content || '');
-
   const handleSubmit = e => {
     e.preventDefault();
     if (title && author && publishedDate && content && shortDescription) {
@@ -51,13 +54,10 @@ const PostsForm = ({ action, actionText, ...props }) => {
       <Row className='mb-3'>
         <Form.Group as={Col} md='6'>
           <Form.Label>Published</Form.Label>
-          <Form.Control
-            required
-            type='date'
-            placeholder='Enter published date'
-            name='published'
-            value={publishedDate}
-            onChange={e => setPublishedDate(e.target.value)}
+
+          <DatePicker
+            selected={publishedDate}
+            onChange={date => setPublishedDate(date)}
           />
         </Form.Group>
       </Row>
@@ -74,22 +74,24 @@ const PostsForm = ({ action, actionText, ...props }) => {
           />
         </Form.Group>
       </Row>
-      <Row className='mb-3'>
+      <Row className='mb-5'>
         <Form.Group as={Col} md='10'>
           <Form.Label>Main description</Form.Label>
-          <Form.Control
-            required
-            as='textarea'
-            placeholder='Leave a comment here'
-            name='descriptions'
-            style={{ height: '150px' }}
+          <ReactQuill
             value={content}
-            onChange={e => setContent(e.target.value)}
+            onChange={setContent}
+            // modules={{
+            //   toolbar: [['bold', 'italic', 'underline', 'strike'], ['link']],
+            // }}
+            style={{ height: '150px' }}
+            placeholder='Leave a comment here'
           />
         </Form.Group>
       </Row>
 
-      <Button type='submit'>{actionText}</Button>
+      <Button style={{ marginTop: '80px' }} type='submit'>
+        {actionText}
+      </Button>
     </Form>
   );
 };
