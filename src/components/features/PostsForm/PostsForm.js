@@ -6,6 +6,7 @@ import ReactQuill from 'react-quill';
 import DatePicker from 'react-datepicker';
 import 'react-quill/dist/quill.snow.css';
 import 'react-datepicker/dist/react-datepicker.css';
+import dateToStr from '../../../utils/dateToStr';
 const PostsForm = ({ action, actionText, ...props }) => {
   const [title, setTitle] = useState(props.title || '');
   const [author, setAuthor] = useState(props.author || '');
@@ -17,7 +18,13 @@ const PostsForm = ({ action, actionText, ...props }) => {
   const handleSubmit = e => {
     e.preventDefault();
     if (title && author && publishedDate && content && shortDescription) {
-      action({ title, author, publishedDate, content, shortDescription });
+      action({
+        title,
+        author,
+        publishedDate: dateToStr(publishedDate),
+        content,
+        shortDescription,
+      });
     } else {
       alert('Wszystkie pola muszą być wypełnione!');
     }

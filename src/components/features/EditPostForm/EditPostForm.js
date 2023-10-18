@@ -20,7 +20,7 @@ const EditPostForm = () => {
         actionText={'Save changes'}
         title={post.title}
         author={post.author}
-        publishedDate={post.publishedDate}
+        publishedDate={new Date(post.publishedDate)}
         shortDescription={post.shortDescription}
         content={post.content}
       />
