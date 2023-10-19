@@ -7,6 +7,8 @@ import DatePicker from 'react-datepicker';
 import 'react-quill/dist/quill.snow.css';
 import 'react-datepicker/dist/react-datepicker.css';
 import dateToStr from '../../../utils/dateToStr';
+import { useForm } from 'react-hook-form';
+
 const PostsForm = ({ action, actionText, ...props }) => {
   const [title, setTitle] = useState(props.title || '');
   const [author, setAuthor] = useState(props.author || '');
@@ -15,9 +17,13 @@ const PostsForm = ({ action, actionText, ...props }) => {
     props.shortDescription || ''
   );
   const [content, setContent] = useState(props.content || '');
-  const handleSubmit = e => {
-    e.preventDefault();
-    if (title && author && publishedDate && content && shortDescription) {
+
+  const [contentError, setContentError] = useState(false);
+  const [dateError, setDateError] = useState(false);
+  const handleSubmit = () => {
+    setContentError(!content);
+    setDateError(!publishedDate);
+    if (content && publishedDate) {
       action({
         title,
         author,
@@ -25,37 +31,51 @@ const PostsForm = ({ action, actionText, ...props }) => {
         content,
         shortDescription,
       });
-    } else {
-      alert('Wszystkie pola muszą być wypełnione!');
     }
   };
 
+  const {
+    register,
+    handleSubmit: validate,
+    formState: { errors },
+  } = useForm();
+
   return (
-    <Form className='mx-5' onSubmit={handleSubmit}>
+    <Form className='mx-5' onSubmit={validate(handleSubmit)}>
       <Row className='mb-3'>
         <Form.Group as={Col} md='6'>
           <Form.Label>Title</Form.Label>
           <Form.Control
-            required
+            {...register('title', { required: true, minLength: 4 })}
             type='text'
             placeholder='Enter title'
             name='title'
             value={title}
             onChange={e => setTitle(e.target.value)}
           />
+          {errors.title && (
+            <small className='d-block form-text text-danger mt-2'>
+              Title should contain at least 4 characters.
+            </small>
+          )}
         </Form.Group>
       </Row>
       <Row className='mb-3'>
         <Form.Group as={Col} md='6'>
           <Form.Label>Author</Form.Label>
           <Form.Control
-            required
+            {...register('author', { required: true, minLength: 4 })}
             type='text'
             placeholder='Enter author date'
             name='author'
             value={author}
             onChange={e => setAuthor(e.target.value)}
           />
+          {errors.author && (
+            <small className='d-block form-text text-danger mt-2'>
+              Author should contain at least 4 characters.
+            </small>
+          )}
         </Form.Group>
       </Row>
       <Row className='mb-3'>
@@ -65,20 +85,31 @@ const PostsForm = ({ action, actionText, ...props }) => {
           <DatePicker
             selected={publishedDate}
             onChange={date => setPublishedDate(date)}
+            // dateFormat={`dd/MM/yyyy`}
           />
+          {dateError && (
+            <small className='d-block form-text text-danger mt-2'>
+              Date must be selected
+            </small>
+          )}
         </Form.Group>
       </Row>
       <Row className='mb-3'>
         <Form.Group as={Col} md='10'>
           <Form.Label>Short description</Form.Label>
           <Form.Control
-            required
+            {...register('shortDescription', { required: true, minLength: 20 })}
             as='textarea'
             placeholder='Leave a comment here'
             name='descriptions'
             value={shortDescription}
             onChange={e => setShortDescription(e.target.value)}
           />
+          {errors.shortDescription && (
+            <small className='d-block form-text text-danger mt-2'>
+              This field is required and should contain at least 20 characters.
+            </small>
+          )}
         </Form.Group>
       </Row>
       <Row className='mb-5'>
@@ -87,12 +118,17 @@ const PostsForm = ({ action, actionText, ...props }) => {
           <ReactQuill
             value={content}
             onChange={setContent}
-            // modules={{
-            //   toolbar: [['bold', 'italic', 'underline', 'strike'], ['link']],
-            // }}
+            modules={{
+              toolbar: [['bold', 'italic', 'underline', 'strike'], ['link']],
+            }}
             style={{ height: '150px' }}
             placeholder='Leave a comment here'
           />
+          {contentError && (
+            <small className='d-block form-text text-danger mt-2'>
+              Content can't be empty
+            </small>
+          )}
         </Form.Group>
       </Row>
 
@@ -108,7 +144,7 @@ PostsForm.propTypes = {
   actionText: PropTypes.string.isRequired,
   title: PropTypes.string,
   author: PropTypes.string,
-  publishedDate: PropTypes.string,
+  publishedDate: PropTypes.instanceOf(Date),
   content: PropTypes.string,
   shortDescription: PropTypes.string,
 };
