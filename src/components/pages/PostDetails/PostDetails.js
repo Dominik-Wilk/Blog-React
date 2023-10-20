@@ -36,8 +36,11 @@ const PostDetails = () => {
               <b>Author: </b>
               {post.author}
             </p>
-            <p>
+            <p className='mb-0'>
               <b>Published:</b> {post.publishedDate}
+            </p>
+            <p>
+              <b>Category:</b> {post.category}
             </p>
             <p dangerouslySetInnerHTML={{ __html: post.content }} />
           </div>

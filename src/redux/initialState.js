@@ -6,6 +6,7 @@ const initialState = {
       shortDescription: 'Short description of article...',
       content: 'Main content of article',
       publishedDate: '02/02/2022',
+      category: 'News',
       author: 'John Doe',
     },
     {
@@ -14,6 +15,7 @@ const initialState = {
       shortDescription: 'Short description of article...',
       content: 'Main content of article',
       publishedDate: '10/02/2022',
+      category: 'Sport',
       author: 'Susan Glith',
     },
     {
@@ -22,6 +24,7 @@ const initialState = {
       shortDescription: 'Short description of article...',
       content: 'Main content of article',
       publishedDate: '10/02/2022',
+      category: 'News',
       author: 'Mark Dolittle',
     },
     {
@@ -30,6 +33,7 @@ const initialState = {
       shortDescription: 'Short description of article...',
       content: 'Main content of article',
       publishedDate: '20/02/2022',
+      category: 'Movies',
       author: 'John Smith',
     },
   ],

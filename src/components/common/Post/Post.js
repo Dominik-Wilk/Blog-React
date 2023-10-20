@@ -11,7 +11,7 @@ const Post = props => {
           <br />
           <b>Published:</b> {props.publishedDate}
           <br />
-          <b>Category:</b>
+          <b>Category:</b> {props.category}
           <br />
           {props.shortDescription}
         </Card.Text>

@@ -21,9 +21,8 @@ const PostsForm = ({ action, actionText, ...props }) => {
   const [content, setContent] = useState(props.content || '');
   const [contentError, setContentError] = useState(false);
   const [dateError, setDateError] = useState(false);
-
+  const [category, setCategory] = useState(props.category || '');
   const allCategories = useSelector(getCategories);
-  console.log(props);
   const handleSubmit = () => {
     setContentError(!content);
     setDateError(!publishedDate);
@@ -32,7 +31,7 @@ const PostsForm = ({ action, actionText, ...props }) => {
         title,
         author,
         publishedDate: dateToStr(publishedDate),
-        // category,
+        category,
         content,
         shortDescription,
       });
@@ -103,7 +102,10 @@ const PostsForm = ({ action, actionText, ...props }) => {
         <Form.Group as={Col} md='10'>
           <Form.Label>Category</Form.Label>
 
-          <select className='d-block w-100' defaultValue=''>
+          <select
+            className='d-block w-100'
+            defaultValue={category}
+            onChange={e => setCategory(e.target.value)}>
             <option value='' disabled>
               Select category
             </option>

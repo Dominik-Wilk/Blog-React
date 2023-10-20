@@ -3,10 +3,16 @@ import { createSelector, nanoid } from '@reduxjs/toolkit';
 // selectors
 const selectPosts = state => state.posts;
 const selectPostId = (state, id) => id;
+const selectPostCategory = (state, category) => category;
+
 export const getPosts = createSelector([selectPosts], posts => posts);
 export const getPostById = createSelector(
   [selectPosts, selectPostId],
   (posts, id) => posts.find(post => post.id === id)
+);
+export const getPostsByCategory = createSelector(
+  [selectPosts, selectPostCategory],
+  (posts, category) => posts.filter(post => post.category === category.name)
 );
 
 // actions

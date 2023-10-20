@@ -1,16 +1,25 @@
 import { useSelector } from 'react-redux';
 import { getCategories } from '../../../redux/categoryRedux';
 import { Link } from 'react-router-dom';
+import { ListGroup } from 'react-bootstrap';
 
 const Categories = () => {
   const allCategories = useSelector(getCategories);
 
   return (
-    <ul>
-      {allCategories.map(category => (
-        <Link key={category.id}>{category.name}</Link>
-      ))}
-    </ul>
+    <div className='mx-5'>
+      <h2 className='mb-4'>All categoires</h2>
+      <ListGroup as='ul' className='d-flex flex-column w-100 d'>
+        {allCategories.map(category => (
+          <ListGroup.Item
+            as={Link}
+            key={category.id}
+            to={`/category/${category.name}`}>
+            <b>{category.name}</b>
+          </ListGroup.Item>
+        ))}
+      </ListGroup>
+    </div>
   );
 };
 export default Categories;
