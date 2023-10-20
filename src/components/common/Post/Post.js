@@ -11,6 +11,8 @@ const Post = props => {
           <br />
           <b>Published:</b> {props.publishedDate}
           <br />
+          <b>Category:</b>
+          <br />
           {props.shortDescription}
         </Card.Text>
         <Button as={Link} to={`/post/${props.id}`} variant='primary'>

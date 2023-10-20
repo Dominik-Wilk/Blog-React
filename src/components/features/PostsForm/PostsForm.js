@@ -8,6 +8,8 @@ import 'react-quill/dist/quill.snow.css';
 import 'react-datepicker/dist/react-datepicker.css';
 import dateToStr from '../../../utils/dateToStr';
 import { useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
+import { getCategories } from '../../../redux/categoryRedux';
 
 const PostsForm = ({ action, actionText, ...props }) => {
   const [title, setTitle] = useState(props.title || '');
@@ -17,9 +19,11 @@ const PostsForm = ({ action, actionText, ...props }) => {
     props.shortDescription || ''
   );
   const [content, setContent] = useState(props.content || '');
-
   const [contentError, setContentError] = useState(false);
   const [dateError, setDateError] = useState(false);
+
+  const allCategories = useSelector(getCategories);
+  console.log(props);
   const handleSubmit = () => {
     setContentError(!content);
     setDateError(!publishedDate);
@@ -28,6 +32,7 @@ const PostsForm = ({ action, actionText, ...props }) => {
         title,
         author,
         publishedDate: dateToStr(publishedDate),
+        // category,
         content,
         shortDescription,
       });
@@ -85,7 +90,7 @@ const PostsForm = ({ action, actionText, ...props }) => {
           <DatePicker
             selected={publishedDate}
             onChange={date => setPublishedDate(date)}
-            // dateFormat={`dd/MM/yyyy`}
+            dateFormat={`dd/MM/yyyy`}
           />
           {dateError && (
             <small className='d-block form-text text-danger mt-2'>
@@ -96,12 +101,27 @@ const PostsForm = ({ action, actionText, ...props }) => {
       </Row>
       <Row className='mb-3'>
         <Form.Group as={Col} md='10'>
+          <Form.Label>Category</Form.Label>
+
+          <select className='d-block w-100' defaultValue=''>
+            <option value='' disabled>
+              Select category
+            </option>
+            {allCategories.map(category => (
+              <option key={category.id} value={category.name}>
+                {category.name}
+              </option>
+            ))}
+          </select>
+        </Form.Group>
+      </Row>
+      <Row className='mb-3'>
+        <Form.Group as={Col} md='10'>
           <Form.Label>Short description</Form.Label>
           <Form.Control
-            {...register('shortDescription', { required: true, minLength: 20 })}
+            {...register('shortDescription', { required: true, min: 20 })}
             as='textarea'
             placeholder='Leave a comment here'
-            name='descriptions'
             value={shortDescription}
             onChange={e => setShortDescription(e.target.value)}
           />
@@ -125,7 +145,7 @@ const PostsForm = ({ action, actionText, ...props }) => {
             placeholder='Leave a comment here'
           />
           {contentError && (
-            <small className='d-block form-text text-danger mt-2'>
+            <small className='d-block form-text text-danger mt-2 mx-2'>
               Content can't be empty
             </small>
           )}
