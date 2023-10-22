@@ -13,19 +13,18 @@ const EditPostForm = () => {
     navigate('/');
   };
   if (!post) return <Navigate to='/' />;
-  else
-    return (
-      <PostsForm
-        action={handleSubmit}
-        actionText={'Save changes'}
-        title={post.title}
-        author={post.author}
-        publishedDate={new Date(post.publishedDate)}
-        shortDescription={post.shortDescription}
-        content={post.content}
-        category={post.category}
-      />
-    );
+  return (
+    <PostsForm
+      action={handleSubmit}
+      actionText={'Save changes'}
+      title={post.title}
+      author={post.author}
+      publishedDate={new Date(post.publishedDate)}
+      shortDescription={post.shortDescription}
+      content={post.content}
+      category={post.category}
+    />
+  );
 };
 
 export default EditPostForm;
