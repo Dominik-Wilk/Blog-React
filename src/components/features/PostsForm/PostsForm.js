@@ -103,6 +103,7 @@ const PostsForm = ({ action, actionText, ...props }) => {
           <Form.Label>Category</Form.Label>
 
           <select
+            {...register('category', { required: true })}
             className='d-block w-100'
             defaultValue={category}
             onChange={e => setCategory(e.target.value)}>
@@ -115,13 +116,18 @@ const PostsForm = ({ action, actionText, ...props }) => {
               </option>
             ))}
           </select>
+          {errors.category && (
+            <small className='d-block form-text text-danger mt-2'>
+              Category should be selected.
+            </small>
+          )}
         </Form.Group>
       </Row>
       <Row className='mb-3'>
         <Form.Group as={Col} md='10'>
           <Form.Label>Short description</Form.Label>
           <Form.Control
-            {...register('shortDescription', { required: true, min: 20 })}
+            {...register('shortDescription', { required: true, minLength: 20 })}
             as='textarea'
             placeholder='Leave a comment here'
             value={shortDescription}
