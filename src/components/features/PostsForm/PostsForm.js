@@ -103,6 +103,7 @@ const PostsForm = ({ action, actionText, ...props }) => {
           <Form.Label>Category</Form.Label>
 
           <select
+            {...register('category', { required: true })}
             className='d-block w-100'
             defaultValue={category}
             onChange={e => setCategory(e.target.value)}>
@@ -115,6 +116,11 @@ const PostsForm = ({ action, actionText, ...props }) => {
               </option>
             ))}
           </select>
+          {errors.category && (
+            <small className='d-block form-text text-danger mt-2'>
+              Category must be seleceted
+            </small>
+          )}
         </Form.Group>
       </Row>
       <Row className='mb-3'>
