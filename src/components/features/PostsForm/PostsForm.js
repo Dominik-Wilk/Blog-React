@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 
-import ReactQuill from 'react-quill';
 import DatePicker from 'react-datepicker';
 import 'react-quill/dist/quill.snow.css';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -19,14 +18,12 @@ const PostsForm = ({ action, actionText, ...props }) => {
     props.shortDescription || ''
   );
   const [content, setContent] = useState(props.content || '');
-  const [contentError, setContentError] = useState(false);
   const [dateError, setDateError] = useState(false);
   const [category, setCategory] = useState(props.category || '');
   const allCategories = useSelector(getCategories);
   const handleSubmit = () => {
-    setContentError(!content);
     setDateError(!publishedDate);
-    if (content && publishedDate) {
+    if (publishedDate) {
       action({
         title,
         author,
@@ -85,7 +82,6 @@ const PostsForm = ({ action, actionText, ...props }) => {
       <Row className='mb-3'>
         <Form.Group as={Col} md='6'>
           <Form.Label>Published</Form.Label>
-
           <DatePicker
             selected={publishedDate}
             onChange={date => setPublishedDate(date)}
@@ -101,8 +97,8 @@ const PostsForm = ({ action, actionText, ...props }) => {
       <Row className='mb-3'>
         <Form.Group as={Col} md='10'>
           <Form.Label>Category</Form.Label>
-
           <select
+            {...register('category', { required: true })}
             className='d-block w-100'
             defaultValue={category}
             onChange={e => setCategory(e.target.value)}>
@@ -115,13 +111,18 @@ const PostsForm = ({ action, actionText, ...props }) => {
               </option>
             ))}
           </select>
+          {errors.category && (
+            <small className='d-block form-text text-danger mt-2'>
+              This field is required and should be selected.
+            </small>
+          )}
         </Form.Group>
       </Row>
       <Row className='mb-3'>
         <Form.Group as={Col} md='10'>
           <Form.Label>Short description</Form.Label>
           <Form.Control
-            {...register('shortDescription', { required: true, min: 20 })}
+            {...register('shortDescription', { required: true, minLength: 20 })}
             as='textarea'
             placeholder='Leave a comment here'
             value={shortDescription}
@@ -137,26 +138,24 @@ const PostsForm = ({ action, actionText, ...props }) => {
       <Row className='mb-5'>
         <Form.Group as={Col} md='10'>
           <Form.Label>Main description</Form.Label>
-          <ReactQuill
-            value={content}
-            onChange={setContent}
-            modules={{
-              toolbar: [['bold', 'italic', 'underline', 'strike'], ['link']],
-            }}
-            style={{ height: '150px' }}
+          <Form.Control
+            {...register('content', { required: true, minLength: 20 })}
+            as='textarea'
             placeholder='Leave a comment here'
+            name='descriptions'
+            style={{ height: '150px' }}
+            value={content}
+            onChange={e => setContent(e.target.value)}
           />
-          {contentError && (
+          {errors.content && (
             <small className='d-block form-text text-danger mt-2 mx-2'>
-              Content can't be empty
+              Main description can not be empty.
             </small>
           )}
         </Form.Group>
       </Row>
 
-      <Button style={{ marginTop: '80px' }} type='submit'>
-        {actionText}
-      </Button>
+      <Button type='submit'>{actionText}</Button>
     </Form>
   );
 };

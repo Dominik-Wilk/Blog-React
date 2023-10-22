@@ -2,6 +2,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import initialState from './initialState';
 import postsReducer from './postsRedux';
 import categoryReducer from './categoryRedux';
+
 const subreducers = {
   posts: postsReducer,
   category: categoryReducer,
