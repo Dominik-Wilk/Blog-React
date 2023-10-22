@@ -113,7 +113,7 @@ const PostsForm = ({ action, actionText, ...props }) => {
           </select>
           {errors.category && (
             <small className='d-block form-text text-danger mt-2'>
-              This field is required and should be selected.
+              Category should be selected.
             </small>
           )}
         </Form.Group>
