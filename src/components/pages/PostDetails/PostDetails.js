@@ -4,6 +4,7 @@ import { Link, Navigate, useParams } from 'react-router-dom';
 import { Button, Modal } from 'react-bootstrap';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import dateToView from '../../../utils/dateToView';
 
 const PostDetails = () => {
   const [show, setShow] = useState(false);
@@ -37,7 +38,7 @@ const PostDetails = () => {
               {post.author}
             </p>
             <p className='mb-0'>
-              <b>Published:</b> {post.publishedDate}
+              <b>Published:</b> {dateToView(post.publishedDate)}
             </p>
             <p>
               <b>Category:</b> {post.category}

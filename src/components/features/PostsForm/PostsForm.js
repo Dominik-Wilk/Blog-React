@@ -22,7 +22,6 @@ const PostsForm = ({ action, actionText, ...props }) => {
   const [category, setCategory] = useState(props.category || '');
   const allCategories = useSelector(getCategories);
 
-  console.log(publishedDate);
   const handleSubmit = () => {
     setDateError(!publishedDate);
     if (publishedDate) {
@@ -34,7 +33,6 @@ const PostsForm = ({ action, actionText, ...props }) => {
         content,
         shortDescription,
       });
-      console.log(publishedDate);
     }
   };
 
@@ -88,8 +86,7 @@ const PostsForm = ({ action, actionText, ...props }) => {
           <DatePicker
             selected={publishedDate}
             onChange={date => setPublishedDate(date)}
-            // dateFormat='dd/MM/yyyy'
-            dateFormat='yyyy/MM/dd'
+            dateFormat='dd/MM/yyyy'
           />
           {dateError && (
             <small className='d-block form-text text-danger mt-2'>
