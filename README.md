@@ -1,4 +1,4 @@
-*** Live demo: https://blog-react.dominik-wilk.repl.co/ ***
+**_ Live demo: https://blog-react-rosy.vercel.app/ _**
 
 # Getting Started with Create React App
 
