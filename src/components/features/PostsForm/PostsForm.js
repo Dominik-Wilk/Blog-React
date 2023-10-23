@@ -84,6 +84,7 @@ const PostsForm = ({ action, actionText, ...props }) => {
         <Form.Group as={Col} md='6'>
           <Form.Label>Published</Form.Label>
           <DatePicker
+            className='w-100'
             selected={publishedDate}
             onChange={date => setPublishedDate(date)}
             dateFormat='dd/MM/yyyy'
@@ -96,7 +97,7 @@ const PostsForm = ({ action, actionText, ...props }) => {
         </Form.Group>
       </Row>
       <Row className='mb-3'>
-        <Form.Group as={Col} md='10'>
+        <Form.Group as={Col} md='6'>
           <Form.Label>Category</Form.Label>
           <select
             {...register('category', { required: true })}
@@ -143,7 +144,6 @@ const PostsForm = ({ action, actionText, ...props }) => {
             {...register('content', { required: true, minLength: 20 })}
             as='textarea'
             placeholder='Leave a comment here'
-            name='descriptions'
             style={{ height: '150px' }}
             value={content}
             onChange={e => setContent(e.target.value)}
