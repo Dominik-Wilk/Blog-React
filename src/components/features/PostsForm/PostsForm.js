@@ -43,7 +43,7 @@ const PostsForm = ({ action, actionText, ...props }) => {
   } = useForm();
 
   return (
-    <Form className='mx-5' onSubmit={validate(handleSubmit)}>
+    <Form className='mx-1' onSubmit={validate(handleSubmit)}>
       <Row className='mb-3'>
         <Form.Group as={Col} md='6'>
           <Form.Label>Title</Form.Label>
