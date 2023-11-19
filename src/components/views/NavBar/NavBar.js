@@ -6,8 +6,8 @@ const NavBar = () => {
     <Navbar
       bg='primary'
       variant='dark'
-      className='justify-content-between mt-4 mb-4  rounded'>
-      <Navbar.Brand as={NavLink} to='/' className='mx-3'>
+      className='justify-content-between mt-4 mb-4 rounded'>
+      <Navbar.Brand as={NavLink} to='/' className='mx-1'>
         Blog.app
       </Navbar.Brand>
       <Nav>
